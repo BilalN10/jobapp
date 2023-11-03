@@ -7,15 +7,16 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:job_app/controller/man_power_controller.dart';
 import 'package:job_app/model/job_model.dart';
-import 'package:job_app/view/constants/constants.dart';
+import 'package:job_app/constants/constants.dart';
 import 'package:job_app/view/home_page/details/job_list_page.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AgentDetailPage extends StatefulWidget {
-  AgentDetailPage({super.key, required this.licenseNo});
+  AgentDetailPage({super.key, required this.licenseNo, this.imageLink});
 
   String licenseNo;
+  String? imageLink;
 
   @override
   State<AgentDetailPage> createState() => _AgentDetailPageState();
@@ -48,6 +49,45 @@ class _AgentDetailPageState extends State<AgentDetailPage> {
     }
   }
 
+  void openWhatsApp(String number) async {
+    // The phone number or WhatsApp link you want to open
+    String phoneNumber = number;
+    // String whatsappUrl = "https://wa.me/$phoneNumber";
+    String url =
+        'whatsapp://send?phone=$phoneNumber&text=${Uri.encodeFull('hello')}';
+    launchUrl(Uri.parse('https://wa.me/$number?text=Hi'),
+        mode: LaunchMode.externalApplication);
+    // if (await canLaunch(url)) {
+    //   await launch(url);
+    // } else {
+    //   throw 'Could not launch $url';
+    // }
+  }
+
+  void openMessenger(String messengerLink) async {
+    try {
+      // The Facebook profile or Messenger link you want to open
+      print('messenger link is $messengerLink');
+      //106019062569308
+      await launchUrl(Uri.parse('https://www.messenger.com/t/$messengerLink'),
+              mode: LaunchMode.externalApplication)
+          .then((value) {
+        print('link open');
+      }).catchError((e) {
+        print('error is ${e.toString()}');
+      });
+
+      // if (await canLaunch(messengerUrl)) {
+      //   await launch(messengerUrl);
+      // } else {
+      //   throw 'Could not launch $messengerUrl';
+      // }
+
+    } catch (e) {
+      print('Error is ${e.toString()}');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,27 +96,72 @@ class _AgentDetailPageState extends State<AgentDetailPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            alignment: Alignment.center,
-            height: Adaptive.px(218),
-            width: Adaptive.w(100),
-            decoration: const BoxDecoration(
-                //color: Colors.amber,
-                image: DecorationImage(
-                    image: AssetImage('assets/icons/company_image.png'),
-                    fit: BoxFit.cover)),
-            child: Padding(
-              padding:
-                  EdgeInsets.only(left: Adaptive.w(5), bottom: Adaptive.h(10)),
-              child: Row(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                // crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  headerImage(),
-                ],
-              ),
-            ),
-          ),
+          widget.imageLink == null
+              ? Container(
+                  alignment: Alignment.center,
+                  height: Adaptive.px(218),
+                  width: Adaptive.w(100),
+                  decoration: BoxDecoration(
+                      //color: Colors.amber,
+                      image: DecorationImage(
+                          image: AssetImage('assets/icons/company_image.png'),
+                          fit: BoxFit.cover)),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        left: Adaptive.w(5), bottom: Adaptive.h(10)),
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      // crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        headerImage(),
+                      ],
+                    ),
+                  ),
+                )
+              : widget.imageLink == '----'
+                  ? Container(
+                      alignment: Alignment.center,
+                      height: Adaptive.px(218),
+                      width: Adaptive.w(100),
+                      decoration: BoxDecoration(
+                          //color: Colors.amber,
+                          image: DecorationImage(
+                              image:
+                                  AssetImage('assets/icons/company_image.png'),
+                              fit: BoxFit.cover)),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            left: Adaptive.w(5), bottom: Adaptive.h(10)),
+                        child: Row(
+                          // mainAxisAlignment: MainAxisAlignment.center,
+                          // crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            headerImage(),
+                          ],
+                        ),
+                      ),
+                    )
+                  : Container(
+                      alignment: Alignment.center,
+                      height: Adaptive.px(218),
+                      width: Adaptive.w(100),
+                      decoration: BoxDecoration(
+                          //color: Colors.amber,
+                          image: DecorationImage(
+                              image: NetworkImage(widget.imageLink!),
+                              fit: BoxFit.cover)),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            left: Adaptive.w(5), bottom: Adaptive.h(10)),
+                        child: Row(
+                          // mainAxisAlignment: MainAxisAlignment.center,
+                          // crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            headerImage(),
+                          ],
+                        ),
+                      ),
+                    ),
           SizedBox(
             height: Adaptive.h(3),
           ),
@@ -96,7 +181,7 @@ class _AgentDetailPageState extends State<AgentDetailPage> {
                         children: [
                           Padding(
                             padding:
-                                EdgeInsets.symmetric(horizontal: Adaptive.w(8)),
+                                EdgeInsets.symmetric(horizontal: Adaptive.w(6)),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -138,7 +223,7 @@ class _AgentDetailPageState extends State<AgentDetailPage> {
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    'Agent Details',
+                                    'agent_details'.tr,
                                     style: GoogleFonts.plusJakartaSans(
                                         textStyle: const TextStyle(
                                       color: lightGrey,
@@ -152,7 +237,7 @@ class _AgentDetailPageState extends State<AgentDetailPage> {
                                 ),
                                 InfoTile(
                                     'assets/icons/bi_person.svg',
-                                    'Name',
+                                    'name'.tr,
                                     cont.getManPowerData.manpowerName!,
                                     () {},
                                     1),
@@ -161,7 +246,7 @@ class _AgentDetailPageState extends State<AgentDetailPage> {
                                 ),
                                 InfoTile(
                                     'assets/icons/location.svg',
-                                    'Location',
+                                    'location'.tr,
                                     cont.getManPowerData.location!, () {
                                   launchURL(cont.getManPowerData.googleMap!);
                                 }, 2),
@@ -182,7 +267,7 @@ class _AgentDetailPageState extends State<AgentDetailPage> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Phone',
+                                          'phone'.tr,
                                           style: GoogleFonts.plusJakartaSans(
                                               textStyle: const TextStyle(
                                                   fontSize: 16,
@@ -194,24 +279,28 @@ class _AgentDetailPageState extends State<AgentDetailPage> {
                                         ),
                                         Row(
                                           children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                launchCaller(cont
-                                                    .getManPowerData.phone_1!);
-                                              },
-                                              child: Text(
-                                                cont.getManPowerData.phone_1!,
-                                                maxLines: 2,
-                                                style:
-                                                    GoogleFonts.plusJakartaSans(
-                                                        textStyle:
-                                                            const TextStyle(
-                                                  decoration:
-                                                      TextDecoration.underline,
-                                                  color: Colors.blue,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w400,
-                                                )),
+                                            SizedBox(
+                                              width: Adaptive.w(20),
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  launchCaller(cont
+                                                      .getManPowerData
+                                                      .phone_1!);
+                                                },
+                                                child: Text(
+                                                  cont.getManPowerData.phone_1!,
+                                                  maxLines: 2,
+                                                  style: GoogleFonts
+                                                      .plusJakartaSans(
+                                                          textStyle:
+                                                              const TextStyle(
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    color: Colors.blue,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w400,
+                                                  )),
+                                                ),
                                               ),
                                             ),
                                             SizedBox(
@@ -254,11 +343,11 @@ class _AgentDetailPageState extends State<AgentDetailPage> {
                                                     onTap: () {
                                                       launchCaller(cont
                                                           .getManPowerData
-                                                          .phone_2!);
+                                                          .phone_3!);
                                                     },
                                                     child: Text(
                                                       cont.getManPowerData
-                                                          .phone_2!,
+                                                          .phone_3!,
                                                       maxLines: 2,
                                                       style: GoogleFonts
                                                           .plusJakartaSans(
@@ -286,17 +375,38 @@ class _AgentDetailPageState extends State<AgentDetailPage> {
                                 ),
                                 InfoTile(
                                     'assets/icons/licence.svg',
-                                    'License Number',
+                                    'license_number'.tr,
                                     cont.getManPowerData.licenseNo!,
                                     () {},
                                     4),
                                 SizedBox(
                                   height: Adaptive.h(1),
                                 ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    socialMediaTile(
+                                        'Whatsapp',
+                                        'assets/icons/whatsapp.svg',
+                                        1,
+                                        cont.getManPowerData.whatsapp!),
+                                    socialMediaTile(
+                                        'Messenger',
+                                        'assets/icons/messenger.svg',
+                                        2,
+                                        cont.getManPowerData.messenger!)
+                                  ],
+                                ),
+
+                                SizedBox(
+                                  height: Adaptive.h(1),
+                                ),
+
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    'Agent Post',
+                                    'agent_posts'.tr,
                                     style: GoogleFonts.plusJakartaSans(
                                         textStyle: const TextStyle(
                                       fontSize: 18,
@@ -318,6 +428,7 @@ class _AgentDetailPageState extends State<AgentDetailPage> {
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
                                       return JobListTile(
+                                          isSavedJObs: false,
                                           jObsModel: cont.getJobsList[index]);
                                       //jobDetailTilte();
                                     });
@@ -328,6 +439,51 @@ class _AgentDetailPageState extends State<AgentDetailPage> {
         ],
       ),
     ));
+  }
+
+  int selededIndex = 0;
+  Widget socialMediaTile(
+      String title, String iconPath, int index, String phoneNumber) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selededIndex = index;
+          if (index == 1) {
+            openWhatsApp(phoneNumber);
+          } else {
+            openMessenger(phoneNumber);
+          }
+        });
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(
+            horizontal: Adaptive.w(6), vertical: Adaptive.h(1.5)),
+        decoration: BoxDecoration(
+          color: selededIndex == index ? primaryColor : null,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: primaryColor),
+        ),
+        child: Row(
+          children: [
+            SvgPicture.asset(iconPath,
+                height: Adaptive.px(20),
+                color: selededIndex == index ? Colors.white : primaryColor),
+            SizedBox(
+              width: 5,
+            ),
+            Text(
+              title,
+              style: GoogleFonts.plusJakartaSans(
+                  textStyle: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color:
+                          selededIndex == index ? Colors.white : primaryColor)),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget headerImage() {

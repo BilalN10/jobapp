@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:job_app/controller/man_power_controller.dart';
 import 'package:job_app/model/job_model.dart';
-import 'package:job_app/view/constants/constants.dart';
+import 'package:job_app/constants/constants.dart';
 import 'package:job_app/view/home_page/details/job_list_page.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -173,6 +173,7 @@ class _AgentDetailPageState extends State<AgentData> {
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
                                       return JobListTile(
+                                          isSavedJObs: false,
                                           jObsModel: cont.getJobsList[index]);
                                       //jobDetailTilte();
                                     });

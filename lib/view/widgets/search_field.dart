@@ -12,6 +12,9 @@ class SearchInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       style: const TextStyle(color: Colors.black),
+      onTap: () {
+        Get.to(() => const PreferancesPage());
+      },
       decoration: InputDecoration(
         hintText: hintText,
         suffixIcon: Padding(

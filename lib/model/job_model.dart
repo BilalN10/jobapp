@@ -12,6 +12,7 @@ class JObsModel {
   String? allowcatedForFuture3;
   String? contractPeriodinYears;
   String? country;
+  String? countryNepali;
   String? currency;
   String? dailyWorkHour;
   String? deadlineAd;
@@ -27,9 +28,12 @@ class JObsModel {
   String? freeTicket;
   String? freeVisa;
   String? headline;
+  String? headlineNepali;
+
   String? jobIdentifier;
   String? jobTitle;
-  String? jobTitleEnglish;
+  String? jobTitleNepali;
+
   String? licenseNo;
   String? linkTOPage;
   String? locationGoogleMap;
@@ -42,8 +46,11 @@ class JObsModel {
   String? other;
   String? post;
   String? qualification;
+  String? qualificationNepali;
   String? recruitingAgencyLocation;
+  String? recruitingAgencyLocationNepali;
   String? recruitingAgencyName;
+  String? recruitingAgencyNameNepali;
   String? recruitingAgencyPhone_1;
   String? recruitingAgencyPhone_2;
   String? remainningFemaleQuota;
@@ -52,9 +59,12 @@ class JObsModel {
   String? sallary;
   String? scrappingDate;
   String? skillType;
+  String? skillTypeNepali;
   String? totalExpense;
   String? weeklyWorkDay;
   String? countryFlag;
+  String? messangerLink;
+  String? whatsappLink;
 
   JObsModel(
       {this.jobId,
@@ -65,6 +75,7 @@ class JObsModel {
       this.allowcatedForFuture3,
       this.contractPeriodinYears,
       this.country,
+      this.countryNepali,
       this.currency,
       this.dailyWorkHour,
       this.deadlineAd,
@@ -78,8 +89,10 @@ class JObsModel {
       this.freeTicket,
       this.freeVisa,
       this.headline,
+      this.headlineNepali,
       this.jobIdentifier,
       this.jobTitle,
+      this.jobTitleNepali,
       this.licenseNo,
       this.linkTOPage,
       this.locationGoogleMap,
@@ -92,9 +105,12 @@ class JObsModel {
       this.other,
       this.post,
       this.qualification,
+      this.qualificationNepali,
       this.ramainingDays,
       this.recruitingAgencyLocation,
+      this.recruitingAgencyLocationNepali,
       this.recruitingAgencyName,
+      this.recruitingAgencyNameNepali,
       this.recruitingAgencyPhone_1,
       this.recruitingAgencyPhone_2,
       this.remainMaleQuota,
@@ -102,12 +118,14 @@ class JObsModel {
       this.sallary,
       this.scrappingDate,
       this.skillType,
+      this.skillTypeNepali,
       this.totalExpense,
       this.weeklyWorkDay,
       this.countryFlag,
       this.deadlineBS,
-      this.jobTitleEnglish});
-
+      this.messangerLink,
+      this.whatsappLink});
+// Saved job snapshot
   JObsModel.fromSnamshot(DocumentSnapshot<Map<String, dynamic>> data) {
     jobId = data.id;
     accomodation = data.data()!["accomodation"].toString() == 'null'
@@ -136,6 +154,9 @@ class JObsModel {
     country = data.data()!["country"].toString() == 'null'
         ? '----'
         : data.data()!["country"].toString();
+    countryNepali = data.data()!["country_nepali"].toString() == 'null'
+        ? '----'
+        : data.data()!["country_nepali"].toString();
     currency = data.data()!["currency"].toString() == 'null'
         ? '----'
         : data.data()!["currency"].toString();
@@ -181,15 +202,19 @@ class JObsModel {
     headline = data.data()!["headline"].toString() == 'null'
         ? '----'
         : data.data()!["headline"].toString();
+    headlineNepali = data.data()!["headline_nepali"].toString() == 'null'
+        ? '----'
+        : data.data()!["headline_nepali"].toString();
     jobIdentifier = data.data()!["job_identifier"].toString() == 'null'
         ? '----'
         : data.data()!["job_identifier"].toString();
     jobTitle = data.data()!["job_title"].toString() == 'null'
         ? '----'
         : data.data()!["job_title"].toString();
-    jobTitleEnglish = data.data()!["job_title_english"].toString() == 'null'
+
+    jobTitleNepali = data.data()!["job_title_nepali"].toString() == 'null'
         ? '----'
-        : data.data()!["job_title_english"].toString();
+        : data.data()!["job_title_nepali"].toString();
 
     licenseNo = data.data()!["license_No"].toString() == 'null'
         ? '----'
@@ -231,14 +256,33 @@ class JObsModel {
     qualification = data.data()!["qualification"].toString() == 'null'
         ? '----'
         : data.data()!["qualification"].toString();
+
+    qualificationNepali =
+        data.data()!["qualification_nepali"].toString() == 'null'
+            ? '----'
+            : data.data()!["qualification_nepali"].toString();
+
     recruitingAgencyLocation =
-        data.data()!["recruiting_agency_location"] == 'null'
+        data.data()!["recruiting_agency_location"] == null ||
+                data.data()!["recruiting_agency_location"] == "null"
             ? '----'
             : data.data()!["recruiting_agency_location"];
+
+    recruitingAgencyLocationNepali =
+        data.data()!["recruiting_agency_location_nepali"] == null ||
+                data.data()!["recruiting_agency_location_nepali"] == "null"
+            ? '----'
+            : data.data()!["recruiting_agency_location_nepali"];
+
     recruitingAgencyName =
         data.data()!["recruiting_agency_name"].toString() == 'null'
             ? '----'
             : data.data()!["recruiting_agency_name"].toString();
+    recruitingAgencyNameNepali =
+        data.data()!["recruiting_agency_name_nepali"].toString() == 'null'
+            ? '----'
+            : data.data()!["recruiting_agency_name_nepali"].toString();
+
     recruitingAgencyPhone_1 =
         data.data()!["recruiting_agency_phone_1"].toString() == 'null'
             ? '----'
@@ -266,6 +310,10 @@ class JObsModel {
     skillType = data.data()!["skill_type"].toString() == 'null'
         ? '----'
         : data.data()!["skill_type"].toString();
+
+    skillTypeNepali = data.data()!["skill_type_nepali"].toString() == 'null'
+        ? '----'
+        : data.data()!["skill_type_nepali"].toString();
     totalExpense = data.data()!["total_expenses_in_NPR"].toString() == 'null'
         ? '----'
         : data.data()!["total_expenses_in_NPR"].toString();
@@ -275,164 +323,197 @@ class JObsModel {
     countryFlag = data.data()!["country_flag"].toString() == 'null'
         ? '----'
         : data.data()!["country_flag"].toString();
+    messangerLink = data.data()!["messenger"].toString() == 'null'
+        ? '----'
+        : data.data()!["messenger"].toString();
+    whatsappLink = data.data()!["whastappLink"].toString() == 'null'
+        ? '----'
+        : data.data()!["whastappLink"].toString();
   }
-
+// Filter job snapshot
   factory JObsModel.fromSnapshot(DocumentSnapshot data) {
     return JObsModel(
-      jobId: data.id,
-      accomodation: data['accomodation'].toString() == 'null'
+      country: data['country'],
+      countryNepali: data["country_nepali"].toString() == 'null'
           ? '----'
-          : data['accomodation'].toString(),
-      allowcatedForFuture: data['allocated_for_future'].toString() == 'null'
+          : data["country_nepali"].toString(),
+      accomodation: data["accomodation"].toString() == 'null'
           ? '----'
-          : data['allocated_for_future'].toString(),
-      allowcatedForFuture1: data['allocated_for_future_1'].toString() == 'null'
+          : data["accomodation"].toString(),
+      allowcatedForFuture: data["allocated_for_future"].toString() == 'null'
           ? '----'
-          : data['allocated_for_future_1'].toString(),
-      allowcatedForFuture2: data['allocated_for_future_2'].toString() == 'null'
+          : data["allocated_for_future"].toString(),
+      allowcatedForFuture1: data["allocated_for_future_1"].toString() == 'null'
           ? '----'
-          : data['allocated_for_future_2'].toString(),
-      allowcatedForFuture3: data['allocated_for_future_3'].toString() == 'null'
+          : data["allocated_for_future_1"].toString(),
+      allowcatedForFuture2: data["allocated_for_future_2"].toString() == 'null'
           ? '----'
-          : data['allocated_for_future_3'].toString(),
+          : data["allocated_for_future_2"].toString(),
+      allowcatedForFuture3: data["allocated_for_future_3"].toString() == 'null'
+          ? '----'
+          : data["allocated_for_future_3"].toString(),
       contractPeriodinYears:
-          data['contract_period_in_years'].toString() == 'null'
+          data["contract_period_in_years"].toString() == 'null'
               ? '----'
-              : data['contract_period_in_years'].toString(),
-      country: data['country'].toString() == 'null'
+              : data["contract_period_in_years"].toString(),
+      currency: data["currency"].toString() == 'null'
           ? '----'
-          : data['country'].toString(),
-      currency: data['currency'].toString() == 'null'
+          : data["currency"].toString(),
+      dailyWorkHour: data["daily_work_hour"].toString() == 'null'
           ? '----'
-          : data['currency'].toString(),
-      dailyWorkHour: data['daily_work_hour'].toString() == 'null'
+          : data["daily_work_hour"].toString(),
+      deadlineAd: data["deadline_AD"].toString() == 'null'
           ? '----'
-          : data['daily_work_hour'].toString(),
-      deadlineAd: data['deadline_AD'].toString() == 'null'
+          : data["deadline_AD"].toString(),
+      deadlineBS: data["deadline_BS"].toString() == 'null'
           ? '----'
-          : data['deadline_AD'].toString(),
-      deadlineBS: data['deadline_BS'].toString() == 'null'
+          : data["deadline_BS"].toString(),
+      employerName: data["employer_Name"].toString() == 'null'
           ? '----'
-          : data['deadline_BS'].toString(),
-      employerName: data['employer_Name'].toString() == 'null'
+          : data["employer_Name"].toString(),
+      employerEmail: data["employer_email"].toString() == 'null'
           ? '----'
-          : data['employer_Name'].toString(),
-      employerEmail: data['employer_email'].toString() == 'null'
+          : data["employer_email"].toString(),
+      employerLocation: data["employer_location"].toString() == 'null'
           ? '----'
-          : data['employer_email'].toString(),
-      employerLocation: data['employer_location'].toString() == 'null'
+          : data["employer_location"].toString(),
+      estimatedSalary: data["estimated_salary"].toString() == 'null'
           ? '----'
-          : data['employer_location'].toString(),
-      estimatedSalary: data['estimated_salary'].toString() == 'null'
+          : data["estimated_salary"].toString(),
+      // expiryDate: data["expiry_day_remaining"].toString() == 'null'
+      //     ? '----'
+      //     : data["expiry_day_remaining"].toString(),
+      femaleQuotaApproved: data["female_Quota_approved"].toString() == 'null'
           ? '----'
-          : data['estimated_salary'].toString(),
-      expiryDate: data['expiry_day_remaining'].toString() == 'null'
+          : data["female_Quota_approved"].toString(),
+      foodFacility: data["food_facility"].toString() == 'null'
           ? '----'
-          : data['expiry_day_remaining'].toString(),
-      femaleQuotaApproved: data['female_Quota_approved'].toString() == 'null'
+          : data["food_facility"].toString(),
+      freeTicket: data["free_ticket"].toString() == 'null'
           ? '----'
-          : data['female_Quota_approved'].toString(),
-      foodFacility: data['food_facility'].toString() == 'null'
+          : data["free_ticket"].toString(),
+      freeVisa: data["free_visa"].toString() == 'null'
           ? '----'
-          : data['food_facility'].toString(),
-      freeTicket: data['free_ticket'].toString() == 'null'
+          : data["free_visa"].toString(),
+      headline: data["headline"].toString() == 'null'
           ? '----'
-          : data['free_ticket'].toString(),
-      freeVisa: data['free_visa'].toString() == 'null'
+          : data["headline"].toString(),
+      headlineNepali: data["headline_nepali"].toString() == 'null'
           ? '----'
-          : data['free_visa'].toString(),
-      headline: data['headline'].toString() == 'null'
+          : data["headline_nepali"].toString(),
+      jobIdentifier: data["job_identifier"].toString() == 'null'
           ? '----'
-          : data['headline'].toString(),
-      jobIdentifier: data['job_identifier'].toString() == 'null'
+          : data["job_identifier"].toString(),
+      jobTitle: data["job_title"].toString() == 'null'
           ? '----'
-          : data['job_identifier'].toString(),
-      jobTitle: data['job_title'].toString() == 'null'
+          : data["job_title"].toString(),
+      jobTitleNepali: data["job_title_nepali"].toString() == 'null'
           ? '----'
-          : data['job_title'].toString(),
-      jobTitleEnglish: data['job_title_english'].toString() == 'null'
+          : data["job_title_nepali"].toString(),
+      licenseNo: data["license_No"].toString() == 'null'
           ? '----'
-          : data['job_title_english'].toString(),
-      linkTOPage: data['link_to_page'].toString() == 'null'
+          : data["license_No"].toString(),
+      linkTOPage: data["link_to_page"].toString() == 'null'
           ? '----'
-          : data['link_to_page'].toString(),
-      licenseNo: data['license_No'].toString() == 'null'
+          : data["link_to_page"].toString(),
+      locationGoogleMap: data["location_google_map"].toString() == 'null'
           ? '----'
-          : data['license_No'].toString(),
-      locationGoogleMap: data['location_google_map'].toString() == 'null'
+          : data["location_google_map"].toString(),
+      lotNumber: data["lot_number"].toString() == 'null'
           ? '----'
-          : data['location_google_map'].toString(),
-      lotNumber: data['lot_number'].toString() == 'null'
+          : data["lot_number"].toString(),
+      maleQuotaApproved: data["male_quota_approved"].toString() == 'null'
           ? '----'
-          : data['lot_number'].toString(),
-      maleQuotaApproved: data['male_quota_approved'].toString() == 'null'
-          ? '----'
-          : data['male_quota_approved'].toString(),
+          : data["male_quota_approved"].toString(),
       newsPaperImage:
-          data['newspaper_details_link_to_image'].toString() == 'null'
+          data["newspaper_details_link_to_image"].toString() == 'null'
               ? '----'
-              : data['newspaper_details_link_to_image'].toString(),
-      newspaperDetailsName: data['newspaper_details_name'].toString() == 'null'
+              : data["newspaper_details_link_to_image"].toString(),
+      newspaperDetailsName: data["newspaper_details_name"].toString() == 'null'
           ? '----'
-          : data['newspaper_details_name'].toString(),
+          : data["newspaper_details_name"].toString(),
       newspaperDetailsPublishDate:
-          data['newspaper_details_publish_date'].toString() == 'null'
+          data["newspaper_details_publish_date"].toString() == 'null'
               ? '----'
-              : data['newspaper_details_publish_date'].toString(),
+              : data["newspaper_details_publish_date"].toString(),
       newspaperDetailsSlogan:
-          data['newspaper_details_slogan'].toString() == 'null'
+          data["newspaper_details_slogan"].toString() == 'null'
               ? '----'
-              : data['newspaper_details_slogan'].toString(),
-      other: data['others'].toString() == 'null'
+              : data["newspaper_details_slogan"].toString(),
+      other: data["others"].toString() == 'null'
           ? '----'
-          : data['others'].toString(),
-      post:
-          data['post'].toString() == 'null' ? '----' : data['post'].toString(),
-      qualification: data['qualification'].toString() == 'null'
+          : data["others"].toString(),
+      // post:
+      //     data["post"].toString() == 'null' ? '----' : data["post"].toString(),
+      qualification: data["qualification"].toString() == 'null'
           ? '----'
-          : data['qualification'].toString(),
+          : data["qualification"].toString(),
+      qualificationNepali: data['qualification_nepali'].toString() == 'null'
+          ? '----'
+          : data['qualification_nepali'].toString(),
+      ///////
       recruitingAgencyLocation:
-          data['recruiting_agency_location'].toString() == 'null'
+          data["recruiting_agency_location"].toString() == 'null'
               ? '----'
-              : data['recruiting_agency_location'].toString(),
-      recruitingAgencyName: data['recruiting_agency_name'].toString() == 'null'
+              : data["recruiting_agency_location"],
+      //////////
+      recruitingAgencyLocationNepali:
+          data["recruiting_agency_location_nepali"] == null ||
+                  data["recruiting_agency_location_nepali"] == "null"
+              ? '----'
+              : data["recruiting_agency_location_nepali"],
+      recruitingAgencyName: data["recruiting_agency_name"].toString() == 'null'
           ? '----'
-          : data['recruiting_agency_name'].toString(),
+          : data["recruiting_agency_name"].toString(),
+      recruitingAgencyNameNepali:
+          data["recruiting_agency_name_nepali"].toString() == 'null'
+              ? '----'
+              : data["recruiting_agency_name_nepali"].toString(),
       recruitingAgencyPhone_1:
-          data['recruiting_agency_phone_1'].toString() == 'null'
+          data["recruiting_agency_phone_1"].toString() == 'null'
               ? '----'
-              : data['recruiting_agency_phone_1'].toString(),
+              : data["recruiting_agency_phone_1"].toString(),
       recruitingAgencyPhone_2:
-          data['recruiting_agency_phone_2'].toString() == 'null'
+          data["recruiting_agency_phone_2"].toString() == 'null'
               ? '----'
-              : data['recruiting_agency_phone_2'].toString(),
-      remainningFemaleQuota: data['remaining_Female_quota'].toString() == 'null'
+              : data["recruiting_agency_phone_2"].toString(),
+      remainningFemaleQuota: data["remaining_Female_quota"].toString() == 'null'
           ? '----'
-          : data['remaining_Female_quota'].toString(),
-      remainMaleQuota: data['remaining_Male_quota'].toString() == 'null'
+          : data["remaining_Female_quota"].toString(),
+      remainMaleQuota: data["remaining_Male_quota"].toString() == 'null'
           ? '----'
-          : data['remaining_Male_quota'].toString(),
-      ramainingDays: data['remaining_days'].toString() == 'null'
+          : data["remaining_Male_quota"].toString(),
+      // ramainingDays: data["remaining_days"].toString() == 'null'
+      //     ? '----'
+      //     : data["remaining_days"].toString(),
+      sallary: data["sallary"].toString() == 'null'
           ? '----'
-          : data['remaining_days'].toString(),
-      sallary: data['sallary'].toString() == 'null'
+          : data["sallary"].toString(),
+      // scrappingDate: data["scrapping_Date"].toString() == 'null'
+      //     ? '----'
+      //     : data["scrapping_Date"].toString(),
+      skillType: data["skill_type"].toString() == 'null'
           ? '----'
-          : data['sallary'].toString(),
-      scrappingDate: data['scrapping_Date'].toString() == 'null'
+          : data["skill_type"].toString(),
+      skillTypeNepali: data["skill_type_nepali"].toString() == 'null'
           ? '----'
-          : data['scrapping_Date'].toString(),
-      skillType: data['skill_type'].toString() == 'null'
+          : data["skill_type_nepali"].toString(),
+      totalExpense: data["total_expenses_in_NPR"].toString() == 'null'
           ? '----'
-          : data['skill_type'].toString(),
-      totalExpense: data['total_expenses_in_NPR'].toString() == 'null'
+          : data["total_expenses_in_NPR"].toString(),
+      weeklyWorkDay: data["weekly_work_day"].toString() == 'null'
           ? '----'
-          : data['total_expenses_in_NPR'].toString(),
-      weeklyWorkDay: data['weekly_work_day'].toString() == 'null'
+          : data["weekly_work_day"].toString(),
+      countryFlag: data["country_flag"].toString() == 'null'
           ? '----'
-          : data['weekly_work_day'].toString(),
-      countryFlag: data['country_flag'].toString() == 'null'
+          : data["country_flag"].toString(),
+      messangerLink: data["messenger"].toString() == 'null'
           ? '----'
-          : data['country_flag'].toString(),
+          : data["messenger"].toString(),
+
+      whatsappLink: data["whastappLink"].toString() == 'null'
+          ? '----'
+          : data["whastappLink"].toString(),
     );
   }
 
@@ -447,183 +528,199 @@ class JObsModel {
   //   );
   // }
 
-  // factory JObsModel.fromFirestore(DocumentSnapshot doc) {
-  //   Map<String, dynamic> data = doc.data() as Map<String, dynamic>
-  //   return JObsModel(
-  //     country: data['country'],
-  //     accomodation : data.data()!["accomodation"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["accomodation"].toString(),
-  //   allowcatedForFuture :
-  //       data.data()!["allocated_for_future"].toString() : 'null'
-  //           ? '----'
-  //           : data.data()!["allocated_for_future"].toString(),
-  //   allowcatedForFuture1 :
-  //       data.data()!["allocated_for_future_1"].toString() : 'null'
-  //           ? '----'
-  //           : data.data()!["allocated_for_future_1"].toString(),
-  //   allowcatedForFuture2 :
-  //       data.data()!["allocated_for_future_2"].toString() : 'null'
-  //           ? '----'
-  //           : data.data()!["allocated_for_future_2"].toString(),
-  //   allowcatedForFuture3 :
-  //       data.data()!["allocated_for_future_3"].toString() : 'null'
-  //           ? '----'
-  //           : data.data()!["allocated_for_future_3"].toString(),
-  //   contractPeriodinYears :
-  //       data.data()!["contract_period_in_years"].toString() : 'null'
-  //           ? '----'
-  //           : data.data()!["contract_period_in_years"].toString(),
-  //   country : data.data()!["country"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["country"].toString(),
-  //   currency : data.data()!["currency"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["currency"].toString(),
-  //   dailyWorkHour : data.data()!["daily_work_hour"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["daily_work_hour"].toString(),
-  //   deadlineAd : data.data()!["deadline_AD"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["deadline_AD"].toString(),
-  //   deadlineBS : data.data()!["deadline_BS"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["deadline_BS"].toString(),
-
-  //   employerName : data.data()!["employer_Name"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["employer_Name"].toString(),
-  //   employerEmail : data.data()!["employer_email"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["employer_email"].toString(),
-  //   employerLocation : data.data()!["employer_location"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["employer_location"].toString(),
-  //   estimatedSalary : data.data()!["estimated_salary"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["estimated_salary"].toString(),
-  //   expiryDate : data.data()!["expiry_day_remaining"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["expiry_day_remaining"].toString(),
-
-  //   femaleQuotaApproved :
-  //       data.data()!["female_Quota_approved"].toString() : 'null'
-  //           ? '----'
-  //           : data.data()!["female_Quota_approved"].toString(),
-  //   foodFacility : data.data()!["food_facility"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["food_facility"].toString(),
-  //   freeTicket : data.data()!["free_ticket"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["free_ticket"].toString(),
-  //   freeVisa : data.data()!["free_visa"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["free_visa"].toString(),
-  //   headline : data.data()!["headline"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["headline"].toString(),
-  //   jobIdentifier : data.data()!["job_identifier"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["job_identifier"].toString(),
-  //   jobTitle : data.data()!["job_title"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["job_title"].toString(),
-  //   jobTitleEnglish : data.data()!["job_title_english"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["job_title_english"].toString(),
-
-  //   licenseNo : data.data()!["license_No"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["license_No"].toString(),
-  //   linkTOPage : data.data()!["link_to_page"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["link_to_page"].toString(),
-  //   locationGoogleMap : data.data()!["location_google_map"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["location_google_map"].toString(),
-  //   lotNumber : data.data()!["lot_number"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["lot_number"].toString(),
-  //   maleQuotaApproved : data.data()!["male_quota_approved"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["male_quota_approved"].toString(),
-  //   newsPaperImage :
-  //       data.data()!["newspaper_details_link_to_image"].toString() : 'null'
-  //           ? '----'
-  //           : data.data()!["newspaper_details_link_to_image"].toString(),
-  //   newspaperDetailsName :
-  //       data.data()!["newspaper_details_name"].toString() : 'null'
-  //           ? '----'
-  //           : data.data()!["newspaper_details_name"].toString(),
-  //   newspaperDetailsPublishDate :
-  //       data.data()!["newspaper_details_publish_date"].toString() : 'null'
-  //           ? '----'
-  //           : data.data()!["newspaper_details_publish_date"].toString(),
-  //   newspaperDetailsSlogan :
-  //       data.data()!["newspaper_details_slogan"].toString() : 'null'
-  //           ? '----'
-  //           : data.data()!["newspaper_details_slogan"].toString(),
-  //   other : data.data()!["others"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["others"].toString(),
-  //   post : data.data()!["post"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["post"].toString(),
-  //   qualification : data.data()!["qualification"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["qualification"].toString(),
-  //   recruitingAgencyLocation :
-  //       data.data()!["recruiting_agency_location"] : 'null'
-  //           ? '----'
-  //           : data.data()!["recruiting_agency_location"],
-  //   recruitingAgencyName :
-  //       data.data()!["recruiting_agency_name"].toString() : 'null'
-  //           ? '----'
-  //           : data.data()!["recruiting_agency_name"].toString(),
-  //   recruitingAgencyPhone_1 :
-  //       data.data()!["recruiting_agency_phone_1"].toString() : 'null'
-  //           ? '----'
-  //           : data.data()!["recruiting_agency_phone_1"].toString(),
-  //   recruitingAgencyPhone_2 :
-  //       data.data()!["recruiting_agency_phone_2"].toString() : 'null'
-  //           ? '----'
-  //           : data.data()!["recruiting_agency_phone_2"].toString(),
-  //   remainningFemaleQuota :
-  //       data.data()!["remaining_Female_quota"].toString() : 'null'
-  //           ? '----'
-  //           : data.data()!["remaining_Female_quota"].toString(),
-  //   remainMaleQuota : data.data()!["remaining_Male_quota"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["remaining_Male_quota"].toString(),
-  //   ramainingDays : data.data()!["remaining_days"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["remaining_days"].toString(),
-  //   sallary : data.data()!["sallary"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["sallary"].toString(),
-  //   scrappingDate : data.data()!["scrapping_Date"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["scrapping_Date"].toString(),
-  //   skillType : data.data()!["skill_type"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["skill_type"].toString(),
-  //   totalExpense : data.data()!["total_expenses_in_NPR"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["total_expenses_in_NPR"].toString(),
-  //   weeklyWorkDay : data.data()!["weekly_work_day"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["weekly_work_day"].toString(),
-  //   countryFlag : data.data()!["country_flag"].toString() : 'null'
-  //       ? '----'
-  //       : data.data()!["country_flag"].toString(),
-
-  //   ),
-  // }
-
   Future<DocumentSnapshot<Map<String, dynamic>>> toDocumentSnapshot(
       String jobId) async {
     final document =
         await FirebaseFirestore.instance.collection('jobs').doc(jobId).get();
     return document;
+  }
+
+  // homepage  job
+
+  factory JObsModel.fromFirestore(Map<dynamic, dynamic> data) {
+    //Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+    return JObsModel(
+      country: data['country'],
+      countryNepali: data["country_nepali"].toString() == 'null'
+          ? '----'
+          : data["country_nepali"].toString(),
+      accomodation: data["accomodation"].toString() == 'null'
+          ? '----'
+          : data["accomodation"].toString(),
+      allowcatedForFuture: data["allocated_for_future"].toString() == 'null'
+          ? '----'
+          : data["allocated_for_future"].toString(),
+      allowcatedForFuture1: data["allocated_for_future_1"].toString() == 'null'
+          ? '----'
+          : data["allocated_for_future_1"].toString(),
+      allowcatedForFuture2: data["allocated_for_future_2"].toString() == 'null'
+          ? '----'
+          : data["allocated_for_future_2"].toString(),
+      allowcatedForFuture3: data["allocated_for_future_3"].toString() == 'null'
+          ? '----'
+          : data["allocated_for_future_3"].toString(),
+      contractPeriodinYears:
+          data["contract_period_in_years"].toString() == 'null'
+              ? '----'
+              : data["contract_period_in_years"].toString(),
+      currency: data["currency"].toString() == 'null'
+          ? '----'
+          : data["currency"].toString(),
+      dailyWorkHour: data["daily_work_hour"].toString() == 'null'
+          ? '----'
+          : data["daily_work_hour"].toString(),
+      deadlineAd: data["deadline_AD"].toString() == 'null'
+          ? '----'
+          : data["deadline_AD"].toString(),
+      deadlineBS: data["deadline_BS"].toString() == 'null'
+          ? '----'
+          : data["deadline_BS"].toString(),
+      employerName: data["employer_Name"].toString() == 'null'
+          ? '----'
+          : data["employer_Name"].toString(),
+      employerEmail: data["employer_email"].toString() == 'null'
+          ? '----'
+          : data["employer_email"].toString(),
+      employerLocation: data["employer_location"].toString() == 'null'
+          ? '----'
+          : data["employer_location"].toString(),
+      estimatedSalary: data["estimated_salary"].toString() == 'null'
+          ? '----'
+          : data["estimated_salary"].toString(),
+      expiryDate: data["expiry_day_remaining"].toString() == 'null'
+          ? '----'
+          : data["expiry_day_remaining"].toString(),
+      femaleQuotaApproved: data["female_Quota_approved"].toString() == 'null'
+          ? '----'
+          : data["female_Quota_approved"].toString(),
+      foodFacility: data["food_facility"].toString() == 'null'
+          ? '----'
+          : data["food_facility"].toString(),
+      freeTicket: data["free_ticket"].toString() == 'null'
+          ? '----'
+          : data["free_ticket"].toString(),
+      freeVisa: data["free_visa"].toString() == 'null'
+          ? '----'
+          : data["free_visa"].toString(),
+      headline: data["headline"].toString() == 'null'
+          ? '----'
+          : data["headline"].toString(),
+      headlineNepali: data["headline_nepali"].toString() == 'null'
+          ? '----'
+          : data["headline_nepali"].toString(),
+      jobIdentifier: data["job_identifier"].toString() == 'null'
+          ? '----'
+          : data["job_identifier"].toString(),
+      jobTitle: data["job_title"].toString() == 'null'
+          ? '----'
+          : data["job_title"].toString(),
+      jobTitleNepali: data["job_title_nepali"].toString() == 'null'
+          ? '----'
+          : data["job_title_nepali"].toString(),
+      licenseNo: data["license_No"].toString() == 'null'
+          ? '----'
+          : data["license_No"].toString(),
+      linkTOPage: data["link_to_page"].toString() == 'null'
+          ? '----'
+          : data["link_to_page"].toString(),
+      locationGoogleMap: data["location_google_map"].toString() == 'null'
+          ? '----'
+          : data["location_google_map"].toString(),
+      lotNumber: data["lot_number"].toString() == 'null'
+          ? '----'
+          : data["lot_number"].toString(),
+      maleQuotaApproved: data["male_quota_approved"].toString() == 'null'
+          ? '----'
+          : data["male_quota_approved"].toString(),
+      newsPaperImage:
+          data["newspaper_details_link_to_image"].toString() == 'null'
+              ? '----'
+              : data["newspaper_details_link_to_image"].toString(),
+      newspaperDetailsName: data["newspaper_details_name"].toString() == 'null'
+          ? '----'
+          : data["newspaper_details_name"].toString(),
+      newspaperDetailsPublishDate:
+          data["newspaper_details_publish_date"].toString() == 'null'
+              ? '----'
+              : data["newspaper_details_publish_date"].toString(),
+      newspaperDetailsSlogan:
+          data["newspaper_details_slogan"].toString() == 'null'
+              ? '----'
+              : data["newspaper_details_slogan"].toString(),
+      other: data["others"].toString() == 'null'
+          ? '----'
+          : data["others"].toString(),
+      post:
+          data["post"].toString() == 'null' ? '----' : data["post"].toString(),
+      qualification: data["qualification"].toString() == 'null'
+          ? '----'
+          : data["qualification"].toString(),
+      qualificationNepali: data['qualification_nepali'].toString() == 'null'
+          ? '----'
+          : data['qualification_nepali'].toString(),
+      ///////
+      recruitingAgencyLocation:
+          data["recruiting_agency_location"].toString() == 'null'
+              ? '----'
+              : data["recruiting_agency_location"],
+      //////////
+      recruitingAgencyLocationNepali:
+          data["recruiting_agency_location_nepali"] == null ||
+                  data["recruiting_agency_location_nepali"] == "null"
+              ? '----'
+              : data["recruiting_agency_location_nepali"],
+      recruitingAgencyName: data["recruiting_agency_name"].toString() == 'null'
+          ? '----'
+          : data["recruiting_agency_name"].toString(),
+      recruitingAgencyNameNepali:
+          data["recruiting_agency_name_nepali"].toString() == 'null'
+              ? '----'
+              : data["recruiting_agency_name_nepali"].toString(),
+      recruitingAgencyPhone_1:
+          data["recruiting_agency_phone_1"].toString() == 'null'
+              ? '----'
+              : data["recruiting_agency_phone_1"].toString(),
+      recruitingAgencyPhone_2:
+          data["recruiting_agency_phone_2"].toString() == 'null'
+              ? '----'
+              : data["recruiting_agency_phone_2"].toString(),
+      remainningFemaleQuota: data["remaining_Female_quota"].toString() == 'null'
+          ? '----'
+          : data["remaining_Female_quota"].toString(),
+      remainMaleQuota: data["remaining_Male_quota"].toString() == 'null'
+          ? '----'
+          : data["remaining_Male_quota"].toString(),
+      ramainingDays: data["remaining_days"].toString() == 'null'
+          ? '----'
+          : data["remaining_days"].toString(),
+      sallary: data["sallary"].toString() == 'null'
+          ? '----'
+          : data["sallary"].toString(),
+      scrappingDate: data["scrapping_Date"].toString() == 'null'
+          ? '----'
+          : data["scrapping_Date"].toString(),
+      skillType: data["skill_type"].toString() == 'null'
+          ? '----'
+          : data["skill_type"].toString(),
+      skillTypeNepali: data["skill_type_nepali"].toString() == 'null'
+          ? '----'
+          : data["skill_type_nepali"].toString(),
+      totalExpense: data["total_expenses_in_NPR"].toString() == 'null'
+          ? '----'
+          : data["total_expenses_in_NPR"].toString(),
+      weeklyWorkDay: data["weekly_work_day"].toString() == 'null'
+          ? '----'
+          : data["weekly_work_day"].toString(),
+      countryFlag: data["country_flag"].toString() == 'null'
+          ? '----'
+          : data["country_flag"].toString(),
+      messangerLink: data["messenger"].toString() == 'null'
+          ? '----'
+          : data["messenger"].toString(),
+
+      whatsappLink: data["whastappLink"].toString() == 'null'
+          ? '----'
+          : data["whastappLink"].toString(),
+    );
   }
 }

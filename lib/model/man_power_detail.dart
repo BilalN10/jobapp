@@ -12,10 +12,12 @@ class ManPowerDetail {
   String? phone_1;
   String? phone_2;
   String? phone_3;
-
   String? photoLink;
   String? status;
   String? manId;
+  String? website;
+  String? messenger;
+  String? whatsapp;
 
   ManPowerDetail(
       {this.about,
@@ -31,7 +33,60 @@ class ManPowerDetail {
       this.phone_3,
       this.photoLink,
       this.status,
+      this.messenger,
+      this.website,
+      this.whatsapp,
       this.manId});
+
+  factory ManPowerDetail.fromFirestore(Map<dynamic, dynamic> data) {
+    return ManPowerDetail(
+      licenseNo: data["License_no"].toString() == 'null'
+          ? '----'
+          : data["License_no"].toString(),
+      about: data["about"].toString() == 'null'
+          ? '----'
+          : data["about"].toString(),
+      facebookLinkPage: data["facebook_page_link"].toString() == 'null'
+          ? '----'
+          : data["facebook_page_link"].toString(),
+      googleMap: data["google_map"].toString() == 'null'
+          ? '----'
+          : data["google_map"].toString(),
+      iconLink: data["icon_link"].toString() == 'null'
+          ? '----'
+          : data["icon_link"].toString(),
+      location: data["location"].toString() == 'null'
+          ? '----'
+          : data["location"].toString(),
+      manager: data["manager"].toString() == 'null'
+          ? '----'
+          : data["manager"].toString(),
+      manpowerName: data["manpower_name"].toString() == 'null'
+          ? '----'
+          : data["manpower_name"].toString(),
+      phone_1: data["phone_1"].toString() == 'null'
+          ? '----'
+          : data["phone_1"].toString(),
+      phone_2: data["phone_2"].toString() == 'null'
+          ? '----'
+          : data["phone_2"].toString(),
+      phone_3: data["phone_3"].toString() == 'null'
+          ? '----'
+          : data["phone_3"].toString(),
+      status: data["status"].toString() == 'null'
+          ? '----'
+          : data["status"].toString(),
+      website: data["website"].toString() == 'null'
+          ? '----'
+          : data["website"].toString(),
+      messenger: data["messenger"].toString() == 'null'
+          ? '----'
+          : data["messenger"].toString(),
+      whatsapp: data["whatsapp"].toString() == 'null'
+          ? '----'
+          : data["whatsapp"].toString(),
+    );
+  }
 
   ManPowerDetail.fromSnamshot(DocumentSnapshot<Map<String, dynamic>> data) {
     manId = data.id;
@@ -62,9 +117,9 @@ class ManPowerDetail {
     phone_1 = data.data()!["phone_1"].toString() == 'null'
         ? '----'
         : data.data()!["phone_1"].toString();
-    phone_2 = data.data()!["phone_3"].toString() == 'null'
+    phone_2 = data.data()!["phone_2"].toString() == 'null'
         ? '----'
-        : data.data()!["phone_3"].toString();
+        : data.data()!["phone_2"].toString();
     phone_3 = data.data()!["phone_3"].toString() == 'null'
         ? '----'
         : data.data()!["phone_3"].toString();
@@ -72,6 +127,17 @@ class ManPowerDetail {
     status = data.data()!["status"].toString() == 'null'
         ? '----'
         : data.data()!["status"].toString();
+
+    website = data.data()!["website"].toString() == 'null'
+        ? '----'
+        : data.data()!["website"].toString();
+    messenger = data.data()!["messenger"].toString() == 'null'
+        ? '----'
+        : data.data()!["messenger"].toString();
+
+    whatsapp = data.data()!["whatsapp"].toString() == 'null'
+        ? '----'
+        : data.data()!["whatsapp"].toString();
 
     print('licence no is ${licenseNo}');
   }

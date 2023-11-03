@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:job_app/controller/job_controller.dart';
-import 'package:job_app/view/constants/constants.dart';
+import 'package:job_app/constants/constants.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SalaryTile extends StatefulWidget {

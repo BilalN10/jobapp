@@ -7,8 +7,10 @@ import 'package:job_app/controller/job_controller.dart';
 import 'package:job_app/controller/man_power_controller.dart';
 import 'package:job_app/model/man_power_detail.dart';
 import 'package:job_app/view/agent_detail/agent_detail.dart';
-import 'package:job_app/view/constants/constants.dart';
+import 'package:job_app/constants/constants.dart';
+import 'package:paginate_firestore/paginate_firestore.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AgentListPage extends StatefulWidget {
   const AgentListPage({super.key});
@@ -53,85 +55,131 @@ class _AgentListState extends State<AgentListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const ScrollPhysics(),
-          child: Column(children: [
-            SizedBox(
-              height: Adaptive.h(3),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: Adaptive.w(7)),
-              child: headerTile(),
-            ),
-            SizedBox(
-              height: Adaptive.h(3),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: Adaptive.w(0)),
-              child: GetBuilder<ManPowerController>(
-                  init: Get.put(ManPowerController()),
-                  builder: (cont) {
-                    return SizedBox(
-                      height: Adaptive.h(100),
-                      child: ListView.builder(
-                        // shrinkWrap: true,
-                        // physics: const NeverScrollableScrollPhysics(),
-                        itemCount: manPowerController.manList.length + 1,
-                        itemBuilder: (BuildContext context, int index) {
-                          if (index == manPowerController.manList.length) {
-                            // If the index is equal to the length of the items list,
-                            // then we are at the end of the list and we need to load more items
-                            if (manPowerController.loading ||
-                                !manPowerController.hasMoreItems) {
-                              print('loading is ${manPowerController.loading}');
-                              print(
-                                  'has more item  is ${manPowerController.hasMoreItems}');
+        child: Column(children: [
+          SizedBox(
+            height: Adaptive.h(3),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: Adaptive.w(7)),
+            child: headerTile(),
+          ),
+          SizedBox(
+            height: Adaptive.h(3),
+          ),
 
-                              if (manPowerController.loading &&
-                                  manPowerController.hasMoreItems) {
-                                manPowerController.loadMoreItems();
-                                return const Center(
-                                    child: CircularProgressIndicator(
-                                  color: Colors.amber,
-                                ));
-                              } else {
-                                return const SizedBox();
-                              }
+          Expanded(
+            child: Scrollbar(
+              isAlwaysShown: true,
+              child: PaginateFirestore(
+                initialLoader: CircularProgressIndicator(),
+                itemBuilderType:
+                    PaginateBuilderType.listView, //Change types accordingly
+                itemBuilder: (context, documentSnapshots, index) {
+                  if (documentSnapshots[index].exists) {
+                    print('last index is ${documentSnapshots.last}');
+                    final data = documentSnapshots[index].data() as Map?;
+                    ManPowerDetail manPowerDetail =
+                        ManPowerDetail.fromFirestore(data!);
+                    return agentListTile(manPowerDetail);
+                  } else {
+                    return Text('not found');
+                  }
+                },
+                bottomLoader: Center(
+                  child: CircularProgressIndicator(
+                    color: primaryColor,
+                  ),
+                ),
+                query: FirebaseFirestore.instance.collection('manpower'),
+                itemsPerPage: 20,
+                isLive: true,
+                padding: EdgeInsets.only(bottom: 50),
+              ),
+            ),
+          ),
 
-                              // If we are already loading more items or there are no more items to load, return a loading spinner
-                              //  Center(
-                              //     child: CircularProgressIndicator(
-                              //   color: Colors.amber,
-                              // ));
-                            } else {
-                              // Otherwise, load more items
-                              manPowerController.pageNumber++;
-                              manPowerController.loading = true;
-                              manPowerController.loadMoreItems();
-                              if (manPowerController.manList.isEmpty) {
-                                return SizedBox();
-                              } else {
-                                return const Center(
-                                    child: CircularProgressIndicator(
-                                  color: Colors.green,
-                                ));
-                              }
-                            }
-                          } else {
-                            //  jobid = jobsList[jobsList.length].jobId!;
+          // Expanded(child: Scrollbar(child: PaginateFirestore(itemBuilder:   (context, documentSnapshots, index) {
+          //                       if (documentSnapshots[index].exists) {
+          //                         print(
+          //                             'last index is ${documentSnapshots.last}');
+          //                         final data =
+          //                             documentSnapshots[index].data() as Map?;
+          //                         ManPowerDetail manPowerDetail =
+          //                             ManPowerDetail.fromFirestore(data!);
+          //                        return agentListTile(
+          //                         manPowerDetail
 
-                            // Otherwise, return a JobListTile widget for the item
-                            return agentListTile(
-                                manPowerController.manList[index]);
-                          }
-                        },
-                        controller: manPowerController.scrollController,
-                      ),
-                    );
-                  }),
-            )
-          ]),
-        ),
+          //                        );
+          //                     }; query:  FirebaseFirestore.instance
+          //                         .collection('jobs')
+          //                         .orderBy('date_time', descending: false); itemBuilderType:  PaginateBuilderType.listView;
+
+          //                          )))
+
+          // Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: Adaptive.w(0)),
+          //   child: GetBuilder<ManPowerController>(
+          //       init: Get.put(ManPowerController()),
+          //       builder: (cont) {
+          //         return SizedBox(
+          //           height: Adaptive.h(100),
+          //           child: Padding(
+          //             padding: const EdgeInsets.only(bottom: 0),
+          //             child: ListView.builder(
+          //               // shrinkWrap: true,
+          //               // physics: const NeverScrollableScrollPhysics(),
+          //               itemCount: manPowerController.manList.length + 1,
+          //               itemBuilder: (BuildContext context, int index) {
+          //                 if (index == manPowerController.manList.length) {
+          //                   // If the index is equal to the length of the items list,
+          //                   // then we are at the end of the list and we need to load more items
+          //                   if (manPowerController.loading ||
+          //                       !manPowerController.hasMoreItems) {
+          //                     if (manPowerController.loading &&
+          //                         manPowerController.hasMoreItems) {
+          //                       manPowerController.loadMoreItems();
+          //                       return const Center(
+          //                           child: CircularProgressIndicator(
+          //                         color: Colors.amber,
+          //                       ));
+          //                     } else {
+          //                       return const SizedBox();
+          //                     }
+
+          //                     // If we are already loading more items or there are no more items to load, return a loading spinner
+          //                     //  Center(
+          //                     //     child: CircularProgressIndicator(
+          //                     //   color: Colors.amber,
+          //                     // ));
+          //                   } else {
+          //                     // Otherwise, load more items
+          //                     manPowerController.pageNumber++;
+          //                     manPowerController.loading = true;
+          //                     manPowerController.loadMoreItems();
+          //                     if (manPowerController.manList.isEmpty) {
+          //                       return SizedBox();
+          //                     } else {
+          //                       return const Center(
+          //                           child: CircularProgressIndicator(
+          //                         color: Colors.green,
+          //                       ));
+          //                     }
+          //                   }
+          //                 } else {
+          //                   //  jobid = jobsList[jobsList.length].jobId!;
+
+          //                   // Otherwise, return a JobListTile widget for the item
+          //                   return agentListTile(
+          //                       manPowerController.manList[index]);
+          //                 }
+          //               },
+          //               controller: manPowerController.scrollController,
+          //             ),
+          //           ),
+          //         );
+          //       }),
+          // )
+        ]),
       ),
     );
   }
@@ -142,6 +190,7 @@ class _AgentListState extends State<AgentListPage> {
       child: GestureDetector(
         onTap: () {
           Get.to(() => AgentDetailPage(
+                imageLink: manPowerDetail.photoLink,
                 licenseNo: manPowerDetail.licenseNo!,
               ));
         },
@@ -160,17 +209,31 @@ class _AgentListState extends State<AgentListPage> {
             children: [
               Row(
                 children: [
-                  Container(
-                    height: Adaptive.h(12),
-                    width: Adaptive.w(28),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        //  color: Colors.amber,
-                        image: DecorationImage(
-                            image: AssetImage("assets/icons/pic_1.png"),
-                            fit: BoxFit.cover,
-                            filterQuality: FilterQuality.high)),
-                  ),
+                  manPowerDetail.iconLink == '----'
+                      ? Container(
+                          height: Adaptive.h(12),
+                          width: Adaptive.w(28),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              //  color: Colors.amber,
+                              image: DecorationImage(
+                                  image: AssetImage("assets/icons/pic_1.png"),
+                                  fit: BoxFit.cover,
+                                  filterQuality: FilterQuality.high)),
+                        )
+                      : Container(
+                          height: Adaptive.h(12),
+                          width: Adaptive.w(28),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              //  color: Colors.amber,
+                              image: DecorationImage(
+                                  image: NetworkImage(manPowerDetail.iconLink!),
+                                  fit: BoxFit.cover,
+                                  filterQuality: FilterQuality.high)),
+                        ),
+
+                  // manPowerDetail.iconLink!.isNotEmpty?
                   SizedBox(
                     width: Adaptive.w(2),
                   ),
@@ -178,7 +241,7 @@ class _AgentListState extends State<AgentListPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: Adaptive.w(40),
+                        width: Adaptive.w(47),
                         child: Text(
                           manPowerDetail.manpowerName!,
                           maxLines: 2,
@@ -204,7 +267,7 @@ class _AgentListState extends State<AgentListPage> {
                             width: Adaptive.w(2),
                           ),
                           SizedBox(
-                            width: Adaptive.w(35),
+                            width: Adaptive.w(47),
                             child: Text(
                               manPowerDetail.location!,
                               maxLines: 2,
@@ -235,7 +298,7 @@ class _AgentListState extends State<AgentListPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(
-                            width: Adaptive.w(35),
+                            width: Adaptive.w(47),
                             child: Text(
                               manPowerDetail.phone_1!,
                               style: GoogleFonts.plusJakartaSans(
@@ -251,24 +314,24 @@ class _AgentListState extends State<AgentListPage> {
                   ),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    '5.0',
-                    style: GoogleFonts.plusJakartaSans(
-                        textStyle: TextStyle(
-                            fontSize: Adaptive.px(12),
-                            fontWeight: FontWeight.w400,
-                            color: lightGrey)),
-                  ),
-                  SizedBox(
-                    width: Adaptive.w(2),
-                  ),
-                  SvgPicture.asset('assets/icons/star.svg')
-                ],
-              )
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.end,
+              //   crossAxisAlignment: CrossAxisAlignment.end,
+              //   children: [
+              //     Text(
+              //       '5.0',
+              //       style: GoogleFonts.plusJakartaSans(
+              //           textStyle: TextStyle(
+              //               fontSize: Adaptive.px(12),
+              //               fontWeight: FontWeight.w400,
+              //               color: lightGrey)),
+              //     ),
+              //     SizedBox(
+              //       width: Adaptive.w(2),
+              //     ),
+              //     SvgPicture.asset('assets/icons/star.svg')
+              //   ],
+              // )
             ],
           ),
         ),

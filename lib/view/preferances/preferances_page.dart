@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:job_app/bottom_navbar/bottom_navbar_page.dart';
+import 'package:job_app/view/bottom_navbar/bottom_navbar_page.dart';
 import 'package:job_app/controller/job_controller.dart';
 import 'package:job_app/model/country_model.dart';
-import 'package:job_app/view/constants/constants.dart';
+import 'package:job_app/constants/constants.dart';
 import 'package:job_app/view/preferances/check_box_tile.dart';
 import 'package:job_app/view/preferances/job_preferance.dart';
 import 'package:job_app/view/preferances/salary_tile.dart';
@@ -26,12 +26,14 @@ class _PreferancesPageState extends State<PreferancesPage> {
   // String gender = 'Male';
 
   // List of items in our dropdown menu
-  var items = ["Male", "Female", "Both"];
+  var items = ["Male", "Female", "Both", "Any"];
   double start = 30.0;
   double end = 50.0;
   List<CountryModel>? countryList;
+  JobController jobController = Get.put(JobController());
   @override
   void initState() {
+    jobController.isFiltering.value = false;
     filterCountry.clear();
     filterJObtype.clear();
     jobController.maxSalary = 0.0;
@@ -93,7 +95,7 @@ class _PreferancesPageState extends State<PreferancesPage> {
                         },
                         child: SvgPicture.asset('assets/icons/cross.svg')),
                     Text(
-                      'Preferences',
+                      'preferances'.tr,
                       style: GoogleFonts.plusJakartaSans(
                           textStyle: const TextStyle(
                         fontSize: 18,
@@ -107,7 +109,7 @@ class _PreferancesPageState extends State<PreferancesPage> {
                   height: Adaptive.h(2),
                 ),
                 Text(
-                  'Gender',
+                  'gender'.tr,
                   style: GoogleFonts.plusJakartaSans(
                       textStyle: TextStyle(
                     fontSize: Adaptive.px(16),
@@ -172,7 +174,7 @@ class _PreferancesPageState extends State<PreferancesPage> {
                   height: Adaptive.h(1.5),
                 ),
                 Text(
-                  'Country',
+                  'country'.tr,
                   style: GoogleFonts.plusJakartaSans(
                       textStyle: TextStyle(
                     fontSize: Adaptive.px(16),
@@ -190,9 +192,11 @@ class _PreferancesPageState extends State<PreferancesPage> {
                               child: CircularProgressIndicator(),
                             )
                           : GridView.builder(
-                              itemCount: cont.showMoreCountry.value
-                                  ? cont.getcountryList.length
-                                  : cont.getcountryList.length - 10,
+                              itemCount: cont.getcountryList.length > 10
+                                  ? cont.showMoreCountry.value
+                                      ? cont.getcountryList.length
+                                      : 10
+                                  : cont.getcountryList.length,
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               gridDelegate:
@@ -263,7 +267,7 @@ class _PreferancesPageState extends State<PreferancesPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Min. Salary',
+                      'min_salary'.tr,
                       style: GoogleFonts.plusJakartaSans(
                           textStyle: TextStyle(
                         fontSize: Adaptive.px(16),
@@ -271,7 +275,7 @@ class _PreferancesPageState extends State<PreferancesPage> {
                       )),
                     ),
                     Text(
-                      'Max. Salary',
+                      'max_salary'.tr,
                       style: GoogleFonts.plusJakartaSans(
                           textStyle: TextStyle(
                         fontSize: Adaptive.px(16),
@@ -289,7 +293,7 @@ class _PreferancesPageState extends State<PreferancesPage> {
                   height: Adaptive.h(1.5),
                 ),
                 Text(
-                  'Job Type',
+                  'job_type'.tr,
                   style: GoogleFonts.plusJakartaSans(
                       textStyle: TextStyle(
                     fontSize: Adaptive.px(16),
@@ -302,9 +306,11 @@ class _PreferancesPageState extends State<PreferancesPage> {
                       return con.getJobType.isEmpty
                           ? CircularProgressIndicator()
                           : GridView.builder(
-                              itemCount: con.showMoreJobType.value
-                                  ? con.getJobType.length
-                                  : con.getJobType.length - 90,
+                              itemCount: con.getJobType.length > 10
+                                  ? con.showMoreJobType.value
+                                      ? con.getJobType.length
+                                      : 10
+                                  : con.getJobType.length,
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               gridDelegate:
@@ -361,7 +367,7 @@ class _PreferancesPageState extends State<PreferancesPage> {
                   height: Adaptive.h(3),
                 ),
                 Text(
-                  'Distance (km)',
+                  'distance_km'.tr,
                   style: GoogleFonts.plusJakartaSans(
                       textStyle: TextStyle(
                     fontSize: Adaptive.px(16),
@@ -376,7 +382,7 @@ class _PreferancesPageState extends State<PreferancesPage> {
                   height: Adaptive.h(3),
                 ),
                 Text(
-                  'Other',
+                  'other'.tr,
                   style: GoogleFonts.plusJakartaSans(
                       textStyle: TextStyle(
                     fontSize: Adaptive.px(16),
@@ -388,17 +394,17 @@ class _PreferancesPageState extends State<PreferancesPage> {
                 ),
                 Row(
                   children: [
-                    OtherFeature(selectedIndex: true, text: 'Free Ticket'),
+                    OtherFeature(selectedIndex: true, text: 'free_ticket'.tr),
                     SizedBox(
                       width: Adaptive.w(3),
                     ),
-                    OtherFeature(selectedIndex: false, text: 'Free Fooding'),
+                    OtherFeature(selectedIndex: false, text: 'free_fooding'.tr),
                   ],
                 ),
                 SizedBox(
                   height: Adaptive.h(1.5),
                 ),
-                OtherFeature(selectedIndex: false, text: 'Free Visa'),
+                OtherFeature(selectedIndex: false, text: 'free_visa'.tr),
                 SizedBox(
                   height: Adaptive.h(4),
                 ),
@@ -432,7 +438,7 @@ class _PreferancesPageState extends State<PreferancesPage> {
                                 borderRadius: BorderRadius.circular(10),
                                 color: Color(0xff00CC9A)),
                             child: Text(
-                              'Apply',
+                              'apply'.tr,
                               style: GoogleFonts.plusJakartaSans(
                                   textStyle: const TextStyle(
                                       fontSize: 17,

@@ -22,6 +22,12 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
     super.initState();
   }
 
+  List<String> imageList = [
+    "assets/icons/Carausal.jpg",
+    "assets/icons/carausal1.jpg",
+    "assets/icons/carausal2.jpg",
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -32,66 +38,66 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
           width: Get.width,
           child: CarouselSlider(
             items: [
-              for (int i = 0; i < 3; i++)
+              for (int i = 0; i < imageList.length; i++)
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 15),
                   width: Get.width,
                   decoration: BoxDecoration(
-                    color: const Color(0xff00CC9A),
+                    image: DecorationImage(image: AssetImage(imageList[i])),
                     boxShadow: const [
-                      BoxShadow(blurRadius: 10, color: Colors.black12)
+                      BoxShadow(blurRadius: 10, color: Colors.black12),
                     ],
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Let's find a job, your\n dream",
-                                  style: GoogleFonts.plusJakartaSans(
-                                      textStyle: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white)),
-                                ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                Container(
-                                  alignment: Alignment.center,
-                                  height: Adaptive.h(4.5),
-                                  width: Adaptive.w(35),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  child: Text(
-                                    'Read More',
-                                    style: GoogleFonts.plusJakartaSans(
-                                        textStyle: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(0xff00CC9A),
-                                    )),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Image.asset(
-                              'assets/icons/boy_image.svg',
-                            )
-                          ],
-                        ),
-                      )),
+                  // child: ClipRRect(
+                  //     borderRadius: BorderRadius.circular(12),
+                  //     child: Padding(
+                  //       padding: const EdgeInsets.only(left: 20),
+                  //       child: Row(
+                  //         crossAxisAlignment: CrossAxisAlignment.center,
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Column(
+                  //             crossAxisAlignment: CrossAxisAlignment.start,
+                  //             mainAxisAlignment: MainAxisAlignment.center,
+                  //             children: [
+                  //               Text(
+                  //                 "Let's find a job, your\n dream",
+                  //                 style: GoogleFonts.plusJakartaSans(
+                  //                     textStyle: const TextStyle(
+                  //                         fontSize: 18,
+                  //                         fontWeight: FontWeight.bold,
+                  //                         color: Colors.white)),
+                  //               ),
+                  //               SizedBox(
+                  //                 height: 15,
+                  //               ),
+                  //               Container(
+                  //                 alignment: Alignment.center,
+                  //                 height: Adaptive.h(4.5),
+                  //                 width: Adaptive.w(35),
+                  //                 decoration: BoxDecoration(
+                  //                   color: Colors.white,
+                  //                   borderRadius: BorderRadius.circular(15),
+                  //                 ),
+                  //                 child: Text(
+                  //                   'Read More',
+                  //                   style: GoogleFonts.plusJakartaSans(
+                  //                       textStyle: const TextStyle(
+                  //                     fontSize: 14,
+                  //                     fontWeight: FontWeight.bold,
+                  //                     color: Color(0xff00CC9A),
+                  //                   )),
+                  //                 ),
+                  //               )
+                  //             ],
+                  //           ),
+                  //           // Image.asset(
+                  //           //   imageList[i],
+                  //           // )
+                  //         ],
+                  //       ),
+                  //     )),
                 ),
             ],
             options: CarouselOptions(
